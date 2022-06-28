@@ -1,6 +1,6 @@
 # web3
 
-## Technolgies
+## Technologies
 
 - Blockchain
 - P2P
