@@ -1,8 +1,14 @@
 from cryptography.hazmat.primitives import hashes
 import uuid
 import logging
+import os
+from environs import Env
 
-LOG_FILE= "K:\Data\Log\web3_dragon.log"
+env = Env()
+# Read .env into os.environ
+env.read_env()
+
+LOG_FILE= env("log_file")
 
 logging.basicConfig(
     filename=LOG_FILE,
