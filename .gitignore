@@ -2,3 +2,5 @@
 *.log
 *.ps1
 __*
+*.stats
+*.pem
