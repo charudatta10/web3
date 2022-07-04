@@ -8,7 +8,6 @@ import unicodedata
 PBKDF2_ROUNDS = 2048
 
 
-
 # Refactored code segments from <https://github.com/keis/base58>
 def b58encode(v: bytes) -> str:
     alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
@@ -145,7 +144,7 @@ class Mnemonic(object):
         return stretched[:64]
 
     @staticmethod
-    def to_hd_master_key(seed, testnet = False) :
+    def to_hd_master_key(seed, testnet=False):
         if len(seed) != 64:
             raise ValueError("Provided seed should have length of 64")
 
@@ -178,7 +177,7 @@ def main() -> None:
         hex_data = sys.argv[1]
     else:
         hex_data = sys.stdin.readline().strip()
-    hex_data ="abcdabcdabcdabcdabcdabcdabcdabcd"
+    hex_data = "abcdabcdabcdabcdabcdabcdabcdabcd"
     data = bytes.fromhex(hex_data)
     m = Mnemonic("english")
     print(data)
