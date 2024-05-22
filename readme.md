@@ -7,3 +7,8 @@
 - DAPP
 - NFT
 - Crypto Currency
+- DAO
+- Wallet
+- VM
+- Smart Contract
+  
