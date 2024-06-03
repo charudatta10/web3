@@ -1,17 +1,3 @@
-[
-    {
-        "data": "Genesis Block",
-        "meta": "PY_DICT",
-        "link": "0x0"
-    },
-    {
-        "data": "block 1",
-        "meta": "PY_DICT",
-        "link": "43f9cb761f0a0bdc9f22754b1db641911a5577b49184b6fe86b9ba71ecefd064"
-    },
-    {
-        "data": "b'-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAnCdSzSa327bfuYXm0nxK\\nB8nmr2FbOWk43qnH5LrrNLIFkrYapotizjtQyKiPCKYZxn7+I/PKyas9gDdJ2YJR\\n3irE5461W2bJL6dTirMt4/gK9lF5TL2E0dTcUBNYgTK5ggGUdCXi6NK3bvKl0Xd1\\nXRgquCbEfzUlmAt7LuhhvfrVBwmqN0c3zYmgn0WQjmxmO42ac2EfOtVoKDKn+FHV\\noK3RsUO4nlXfMvi6+krOfRsT7hKLzfNVuOkclQZ7J8qAnwd9g4/nnnC/6MNBdFcw\\nyyeMmpQjzZfNPPCHqogEm8oCpBjimaJ+7mPOLHnRm6cLuCAR+Bxmbv8GRZvHGI1v\\nDDjy3lphw6e3jb2X2HmKrassiJOvPV08qAHJTwxF4SPD6m9i1xogw0c4LGG5HwSV\\nuslfgwtVpa/ZxFcH05cF742e6eV4H2Cd31vdF2mwCQu1SwBY584nfl3tcpIIPg0B\\nHjkiSXFvM5A/e/Kfmf4CFFsdkTwQKdH630ZlOHkSokbLMODmEcKitLZAcQCFB0BE\\n3Na3wLKb5O5YyjJ2j8jJ8IwDB8783C7HNHMVFheGefZsHe6uNFFneurue8dm7fHB\\nsHot/+7x+lBwYpw0pmM/kTxtDHLEHC7wC7A7tRGTru6uRxAD4QjHBF2DHBncTZ94\\nsf5Dcr7vDR/nhMTAdIE6+n8CAwEAAQ==\\n-----END PUBLIC KEY-----'",
-        "meta": "GEN_WALLET",
-        "link": "faa565fa37fdebc665e265c0a28ad8a0e3017927c38df5c97867782f888f3644"
-    }
-]
+version https://git-lfs.github.com/spec/v1
+oid sha256:aae476cb50b5209a02bccae45d8a779a592668f246f122e17e66e2c3bf7ba184
+size 228304275
