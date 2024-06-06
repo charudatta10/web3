@@ -1,4 +1,5 @@
 import json
+import os
 
 from helper_funczex import (
     gen_wallet, 
@@ -14,17 +15,26 @@ from helper_funczex import (
 
 
 class chain():
-    def __init__(self) -> None:
-        self.db=[]
-        self.db.append({"data": "Genesis Block", "meta": "PY_DICT", "link": "0x0"})
+    def __init__(self, db_name="block_chain.jason") -> None:
+        if os.path.exists(db_name):
+            with open(db_name, 'r') as fp:
+                self.db = json.load(fp)
+                self.id = len(self.db) - 1
+        else:
+            self.db = {}
+            self.id=0
+            self.db.update({self.id: {"data": "Genesis Block", "meta": "PY_DICT", "link": "0x0"}})
+
+        
 
     def block (self, data, meta) -> None:
-        prev_hash = gen_hash(self.db[-1])
-        return self.db.append({"data": data, "meta": meta, "link": prev_hash})
+        prev_hash = gen_hash(list(self.db.keys())[-1])
+        self.id = self.id + 1
+        return self.db.update({self.id: {"data": data, "meta": meta, "link": prev_hash}})
 
     def view_chain(self):
         for i in range(len(self.db)):
-            for key,value in self.db[i].items():
+            for key,value in self.db.items():
                 print(f"key: {key}\nvalue: {value}\n---------------")
             print(f"-------{i}-------")
     
@@ -32,21 +42,18 @@ class chain():
         with open(db_name, 'w') as fp:
             json.dump(self.db, fp, indent=4)
 
-    def load_chain(self, db_name):
-        with open(db_name, 'r') as fp:
-            self.db = json.load(fp)
 
     def search_chain(self, data):
         block_num = []
         for i in range(len(self.db)):
-            if data in self.db[i]["data"]:
+            if data in self.db[str(i)]["data"]:
                 block_num.append(i)
             else:
                 continue
         return False if block_num == [] else block_num 
     
     def get_block(self, idx):
-        return [self.db[i]  for i in idx]
+        return [self.db[str(i)]  for i in idx]
     
     def crud_create():
         """

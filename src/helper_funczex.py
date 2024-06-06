@@ -8,7 +8,7 @@ from Crypto.Cipher import PKCS1_OAEP
 
 
 def gen_wallet():
-    key = RSA.generate(8192)
+    key = RSA.generate(2046)
     with open("privkey1.pem", "wb") as f:
         f.write(key.exportKey("PEM"))
     with open("pubkey1.pem", "wb") as f:

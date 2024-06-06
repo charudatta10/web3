@@ -1,4 +1,5 @@
 import json
+import random
 
 from Crypto.PublicKey import RSA
 
@@ -34,27 +35,29 @@ def test_gen():
     db_name = "block_chain.json"
     print(f"---Save Block chain ------")
     c1.save_chain(db_name)
-    print(f"---Load Block chain ------")
-    c1.load_chain(db_name)
     print(f"---Verify Block chain ------")
     c1.view_chain()
 
 
 def test_load():
-    c1 = chain()
     db_name = "block_chain.json"
-    print(f"---Load Block chain ------")
-    c1.load_chain(db_name)
+    c1 = chain(db_name)
     print(f"---Verify Block chain ------")
     #c1.view_chain()
     idx = c1.search_chain("block 1")
     #c1.block("block 1","PyBlock")
-    for i in range(1000000):
-        c1.block("abc","pytest")
+    for i in range(10):
+        my_user_list = ['user1', 'user2', 'user3']
+        get_sender = random.choice(my_user_list)
+        get_receiver = random.choice(my_user_list)
+        get_money = random.randint(1, 100)
+        temp_txn={"src":get_sender, "dest":get_receiver, "amt":get_money}
+        c1.block(str(temp_txn),"money")
     c1.save_chain(db_name)
     t1 = c1.get_block(idx)
     for i in range(len(idx)):
         print(f"Block number: {idx[i]}\nBlocK: {t1[i]}\n-----------------")
+    c1.view_chain()
 
 
 def test_cipher():
@@ -69,6 +72,6 @@ def test_cipher():
 
 
 if __name__ == "__main__":
-    # test_gen()
+    #test_gen()
     test_load()
     #test_cipher()
