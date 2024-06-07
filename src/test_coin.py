@@ -1,63 +1,65 @@
-import json
 import random
+import logging
+
+logging.basicConfig(level=logging.ERROR)
 
 from Crypto.PublicKey import RSA
 
 from helper_funczex import (
-    gen_wallet,
-    gen_hash,
-    gen_sign,
     gen_cipher,
     gen_plain,
-    ver_sign,
-    get_mnemo,
-    get_phase,
-    ver_wallet,
 )
-from coin import chain, trxn, wallet, mine
+from coin import Mine
+from trxn import Trxn
+from chain import Chain
+from wallet import Wallet
 
 
-def test_gen():
-    c1 = chain()
-    c1.view_chain()
-    c1.block("block 1", "PY_DICT")
-    c1.view_chain()
-    gen_wallet()
-    with open("pubkey1.pem", "rb") as f:
-        key = RSA.importKey(f.read())
-    t1 = trxn(c1.db)
-    if t1.ver_trxn("wallet_creation", "", "", str(key.exportKey())):
-        c1.block(str(key.exportKey()), "GEN_WALLET")
-    c1.view_chain()
-    if t1.ver_trxn("wallet_creation", "", "", str(key.exportKey())):
-        c1.block(str(key.exportKey()), "GEN_WALLET")
-    c1.view_chain()
-    db_name = "block_chain.json"
-    print(f"---Save Block chain ------")
-    c1.save_chain(db_name)
-    print(f"---Verify Block chain ------")
-    c1.view_chain()
 
 
-def test_load():
-    db_name = "block_chain.json"
-    c1 = chain(db_name)
-    print(f"---Verify Block chain ------")
-    #c1.view_chain()
-    idx = c1.search_chain("block 1")
-    #c1.block("block 1","PyBlock")
+def test_chain():
+    c1 = Chain() # create chain
     for i in range(10):
-        my_user_list = ['user1', 'user2', 'user3']
+        b1 = c1.gen_block(f"block {i}", "TEST") # create first block
+        c1.add_block(b1) # add first block
+    db_name = "coin1.json" # save block chain
+    c1.save_chain(db_name)
+    c2 = Chain("coin1.json")
+    print(c2.search_chain("block 3"))
+    c2.view_chain()
+
+def test_wallet():
+    w0 = Wallet("user1") # create wallet
+    w0.add_money(100)
+    w1 = Wallet("user2")
+    w0.get_wallet() # add wallet
+    w0.save_wallet()
+   
+def test_coin():
+    pass
+
+def test_trxn():
+    t1 = Trxn() # create transaction
+    temp_txn={"src":'gov', "dest":'bank', "amt":1000}
+    bt = c1.gen_block(str(temp_txn),"money")
+    c1.add_block(bt)
+
+    t1 = trxn(c1.db)
+    for i in range(10):
+        my_user_list = [c1.db['2']['data'], c1.db['3']['data'], c1.db['4']['data'],c1.db['5']['data']]
         get_sender = random.choice(my_user_list)
         get_receiver = random.choice(my_user_list)
         get_money = random.randint(1, 100)
         temp_txn={"src":get_sender, "dest":get_receiver, "amt":get_money}
-        c1.block(str(temp_txn),"money")
+        bt = c1.gen_block(temp_txn,"money")
+        if t1.ver_trxn(bt):
+            c1.add_block(bt)
+        else:
+            print("Transaction failed")
     c1.save_chain(db_name)
     t1 = c1.get_block(idx)
     for i in range(len(idx)):
         print(f"Block number: {idx[i]}\nBlocK: {t1[i]}\n-----------------")
-    c1.view_chain()
 
 
 def test_cipher():
@@ -72,6 +74,8 @@ def test_cipher():
 
 
 if __name__ == "__main__":
-    #test_gen()
-    test_load()
+    test_chain()
+    test_wallet()
+    #test_trxn()
+    #test_coin()
     #test_cipher()

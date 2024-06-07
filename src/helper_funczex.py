@@ -1,3 +1,4 @@
+from email.headerregistry import Address
 import hashlib
 import json 
 
@@ -7,12 +8,13 @@ from Crypto.Signature import PKCS1_v1_5
 from Crypto.Cipher import PKCS1_OAEP
 
 
-def gen_wallet():
+def gen_wallet(user_name):
     key = RSA.generate(2046)
-    with open("privkey1.pem", "wb") as f:
+    with open(f"{user_name}_privkey.pem", "wb") as f:
         f.write(key.exportKey("PEM"))
-    with open("pubkey1.pem", "wb") as f:
+    with open(f"{user_name}_pubkey.pem", "wb") as f:
         f.write(key.publickey().exportKey("PEM"))
+    return str(key.publickey().exportKey("PEM"))
 
 
 def gen_hash(data):
@@ -57,9 +59,21 @@ def get_phase():
 
 def ver_wallet(db, data):
     for i in range(len(db)):
-        if data in db[i]["data"]:
-            return True
+        if  db[i+1]["meta"] == "wallet_creation":
+            if db[i+1]["data"]["address"] == data["address"]:
+                return True
         else:
             continue
     return False
 
+def ver_wallet_amt(db, data):
+    for i in range(len(db)):
+        amt = 0
+        if  db[i+1]["meta"] == "money":
+            if db[i+1]["data"]["src"] == data["src"]:
+                amt += data["amt"]
+            elif db[i+1]["data"]["dest"] == data["dest"]: 
+                amt -= data["amt"]  
+        else:
+            continue
+    return amt
