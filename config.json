@@ -1,0 +1,17 @@
+{
+    "title": "crypto functions list",
+    "description": "blockchain",
+    "features": "- wallet\n- transection\n",
+    "list_badges": "![](https://img.shields.io/badge/Python-975E73?style=for-the-badge&logo=python&logoColor=000) ",
+    "steps": "- python chain.py\n",
+    "FAQ": "> is project production ready??    \n   no.    \n   \n",
+    "dependencies": "- crypto\n",
+    "user": "charudatta10",
+    "contact_link": "https://charudatta10.github.io/linktree/",
+    "license": "MIT",
+    "img_slogo": "favicon05.svg",
+    "img_profile": "profile-picture.png",
+    "img_screenshot": "",
+    "img_preview": "",
+    "img_logo": ""
+}

@@ -1,8 +1,8 @@
 
 
 class Trxn():  
-    def __init__(self) -> None:
-        pass
+    def __init__(self, block) -> None:
+        self.block = block
 
     def create_trxn(self):
         pass
@@ -10,7 +10,17 @@ class Trxn():
         pass
     def add_trxn(self):
         pass
-    def ver_trxn(self, trxn):
+
+    def ver_wallet(self):
+        """list_val = [value for self.block["address"] in db.["data"]["address"]]# check if address exist search in data in block chain
+                    print("wallet does not exist!")
+                    return True
+                else:
+                    print("wallet already exist!")
+                    return False"""
+
+    def ver_money(self):
+        pass
         """block = t_block[len(self.db) + 1]
         print(block)
         match block['meta']:
