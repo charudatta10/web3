@@ -1,15 +1,17 @@
  
 <!-- PROJECT Banner -->
-![SVG Banners](https://svg-banners.vercel.app/api?type=luminance&text1=crypto functions list&width=1020&height=460)
+
+![SVG Banners](https://svg-banners.vercel.app/api?type=luminance&text1=crypto%20functions%20list&width=1020&height=460)
+
 <!-- PROJECT TITLE - PROJECT LOGO -->
 # crypto functions list ![Logo]()
 
 <!-- PROJECT SHIELDS -->
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/charudatta10/crypto functions list?include_prereleases)
-![GitHub last commit](https://img.shields.io/github/last-commit/charudatta10/crypto functions list)
-![GitHub issues](https://img.shields.io/github/issues-raw/charudatta10/crypto functions list)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/charudatta10/crypto functions list)
-![GitHub](https://img.shields.io/github/license/charudatta10/crypto functions list)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/charudatta10/crypto%20functions%20list?include_prereleases)
+![GitHub last commit](https://img.shields.io/github/last-commit/charudatta10/crypto%20functions%20list)
+![GitHub issues](https://img.shields.io/github/issues-raw/charudatta10/crypto%20functions%20list)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/charudatta10/crypto%20functions%20list)
+![GitHub](https://img.shields.io/github/license/charudatta10/crypto%20functions%20list)
 
 <!-- Project Description -->
 blockchain  
@@ -60,7 +62,7 @@ gh repo clone charudatta10/crypto functions list
 
 ## FAQ ?
 
-✨[Report a 🐛 or Request a ⭐](https://github.com/charudatta10/crypto functions list/issues)✨
+✨[Report a 🐛 or Request a ⭐](https://github.com/charudatta10/crypto%20functions%20list/issues)✨
 
 > is project production ready??    
    no.    
@@ -75,7 +77,7 @@ The author of this project is charudatta10.
 
 ## Contributors 👪
 
-| ![](profile-picture.png) |
+| ![profile-picture.png](https://i.pinimg.com/564x/72/44/9f/72449fe7f77ccecce98bf10cf21e92ab.jpg) |
 | :---: | 
 | charudatta10 |
 | [💻](#code-charudatta10)  [📖](#doc-charudatta10)  [🎨](#design-charudatta10)  [💡](#example-charudatta10)  [🤔](#ideas-charudatta10)|
