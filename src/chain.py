@@ -1,28 +1,44 @@
 import json
 import os
-
+from datetime import datetime
 from helper_funczex import (
     gen_hash, 
     )
 
+def gen_sign():
+    pass
+
+
+class block():
+
+    def __init__(self, proof, data) -> None:
+        self.time_stamp= datetime.now().timestamp()
+        self.proof= proof
+        self.prev_hash= None
+        self.sign= gen_sign()
+        self.data= data
+
+    
+
 class Chain():
     def __init__(self, db_name="block_chain.jason") -> None:
+        self.db = {}
         if os.path.exists(db_name):
             with open(db_name, 'r') as fp:
                 self.db = json.load(fp)
                 self.id = len(self.db) - 1
         else:
-            self.db = {}
-            self.id= 1
-            self.db.update({self.id: {"data": "Genesis Block", "meta": "PY_DICT", "link": "0x0"}})
+            self.db['0'] = block(0, "Genesis Block").__dict__
+            self.id = 0
 
-    def gen_block (self, data, meta) -> None:
-        prev_hash = gen_hash(list(self.db.keys())[-1])
-        return {self.id + 1: {"data": data, "meta": meta, "link": prev_hash}}    
+    def get_block(self, id): # return previous block
+        return self.db[str(id)]
 
-    def add_block (self, block) -> None:
+    def add_block(self, data) -> None:
+        b1= block(0, data) 
+        b1.prev_hash = gen_hash(self.get_block(self.id))
         self.id = self.id + 1
-        return self.db.update(block)
+        self.db[str(self.id)]= b1.__dict__
 
     def view_chain(self):
         for i in range(len(self.db)):
@@ -38,7 +54,7 @@ class Chain():
     def search_chain(self, data):
         block_num = []
         for i in range(len(self.db)):
-            if data in self.db[str(i+1)]["data"]:
+            if data in self.db[str(i)]["data"]:
                 block_num.append(i)
             else:
                 continue
@@ -52,4 +68,15 @@ class Chain():
         5. query generator or query language 
         6. operation on queried data
         """
+
+if __name__ == "__main__":
+    #b1=block( 0, '1a')
+    #print(b1.__dict__)
+    c1= Chain(db_name="coin2.json")
+    c1.view_chain()
+    c1.add_block("abc")
+    c1.view_chain()
+    c1.add_block("123")
+    c1.view_chain()
+    c1.save_chain(db_name="coin2.json")
     

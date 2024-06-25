@@ -20,12 +20,11 @@ from wallet import Wallet
 def test_chain():
     c1 = Chain() # create chain
     for i in range(10):
-        b1 = c1.gen_block(f"block {i}", "TEST") # create first block
-        c1.add_block(b1) # add first block
+        c1.add_block(f"block {i} TEST") # create first block
     db_name = "coin1.json" # save block chain
     c1.save_chain(db_name)
     c2 = Chain("coin1.json")
-    print(c2.search_chain("block 3"))
+    print(c2.search_chain("block 3 TEST"))
     c2.view_chain()
 
 def test_wallet():
@@ -75,7 +74,7 @@ def test_cipher():
 
 if __name__ == "__main__":
     test_chain()
-    test_wallet()
+    #test_wallet()
     #test_trxn()
     #test_coin()
     #test_cipher()
