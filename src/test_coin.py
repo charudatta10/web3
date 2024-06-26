@@ -21,9 +21,9 @@ def test_chain():
     c1 = Chain() # create chain
     for i in range(10):
         c1.add_block(f"block {i} TEST") # create first block
-    db_name = "coin1.json" # save block chain
+    db_name = "../data/coin1.json" # save block chain
     c1.save_chain(db_name)
-    c2 = Chain("coin1.json")
+    c2 = Chain(db_name)
     print(c2.search_chain("block 3 TEST"))
     c2.view_chain()
 

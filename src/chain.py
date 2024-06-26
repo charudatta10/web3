@@ -72,11 +72,11 @@ class Chain():
 if __name__ == "__main__":
     #b1=block( 0, '1a')
     #print(b1.__dict__)
-    c1= Chain(db_name="coin2.json")
+    c1= Chain(db_name="../data/coin2.json")
     c1.view_chain()
     c1.add_block("abc")
     c1.view_chain()
     c1.add_block("123")
     c1.view_chain()
-    c1.save_chain(db_name="coin2.json")
+    c1.save_chain(db_name="../data/coin2.json")
     
