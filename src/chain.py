@@ -12,9 +12,9 @@ def gen_sign():
 class block():
 
     def __init__(self, proof, data) -> None:
-        self.time_stamp= datetime.now().timestamp()
+        self.stamp= datetime.now().timestamp()
         self.proof= proof
-        self.prev_hash= None
+        self.link= None
         self.sign= gen_sign()
         self.data= data
 
@@ -36,7 +36,7 @@ class Chain():
 
     def add_block(self, data) -> None:
         b1= block(0, data) 
-        b1.prev_hash = gen_hash(self.get_block(self.id))
+        b1.link = gen_hash(self.get_block(self.id))
         self.id = self.id + 1
         self.db[str(self.id)]= b1.__dict__
 
