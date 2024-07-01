@@ -1,5 +1,6 @@
 import json
 import os
+import redis
 from datetime import datetime
 from helper_funczex import (
     gen_hash, 
@@ -23,6 +24,7 @@ class block():
 class Chain():
     def __init__(self, db_name="block_chain.jason") -> None:
         self.db = {}
+        self.db = redis.Redis(host='localhost', port=6379, db=0)
         if os.path.exists(db_name):
             with open(db_name, 'r') as fp:
                 self.db = json.load(fp)
