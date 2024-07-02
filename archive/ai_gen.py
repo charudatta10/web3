@@ -33,6 +33,9 @@ class Blockchain:
         self.create_genesis_block()
         # Connect to Redis
         self.db = redis.Redis(host='localhost', port=6379, db=0)
+        self.db.save(100,1)
+        self.db.set("hello","world")
+        print(self.db.get("hello"))
         # Connect to the SQLite database
         #self.conn = sqlite3.connect("bitcoin_blockchain.db")
         #self.cursor = self.conn.cursor()
@@ -62,7 +65,8 @@ class Blockchain:
             data=data,
         )
         self.chain.append(new_block)
-        self.db.set(index, new_block)
+        print("hi")
+        self.db.set(len(self.chain), str(new_block))
         # Save the block to the database
         #self.cursor.execute(
         #    """
@@ -119,17 +123,18 @@ class Blockchain:
         self.conn.commit()
 
     def load_chain_from_db(self):
-        self.cursor.execute("SELECT * FROM blockchain ORDER BY index")
-        rows = self.cursor.fetchall()
-        for row in rows:
-            block = Block(
-                index=row[0],
-                timestamp=row[1],
-                previous_hash=row[2],
-                proof=row[3],
-                data=row[4],
-            )
-            self.chain.append(block)
+        #self.cursor.execute("SELECT * FROM blockchain ORDER BY index")
+        #rows = self.cursor.fetchall()
+        #for row in rows:
+        #    block = Block(
+        #        index=row[0],
+        #        timestamp=row[1],
+        #        previous_hash=row[2],
+        #        proof=row[3],
+        #        data=row[4],
+        #    )
+        #    self.chain.append(block)
+        pass
 
     def search_blocks_by_data(self, target_data):
         matching_blocks = []
@@ -176,14 +181,14 @@ if __name__ == "__main__":
     my_blockchain.save_chain_to_json()
     my_blockchain.create_block(proof=456, data="Another transaction data")
     # Example usage:
-    # print("Loaded blockchain from database:")
-    # for block in my_blockchain.chain:
-    #    print(f"Block {block.index}: {block.data}")
+    print("Loaded blockchain from database:")
+    for block in my_blockchain.chain:
+        print(f"Block {block.index}: {block.data}")
     # Example usage:
     # Assuming you have added some blocks to the chain
-    # data_to_check = 'Some transaction data'  # Replace with the data you want to check
-    # print(f"Data '{data_to_check}' exists in the blockchain:", my_blockchain.is_data_in_chain(data_to_check))
-    # print(f"Data '{data_to_check}' is unique in the blockchain:", my_blockchain.is_data_unique(data_to_check))
+    data_to_check = 'Some transaction data'  # Replace with the data you want to check
+    print(f"Data '{data_to_check}' exists in the blockchain:", my_blockchain.is_data_in_chain(data_to_check))
+    print(f"Data '{data_to_check}' is unique in the blockchain:", my_blockchain.is_data_unique(data_to_check))
     # Example Usage
-    # my_blockchain.mine_block(data='Some transaction data')
-    # print("Blockchain is valid:", my_blockchain.is_chain_valid())
+    my_blockchain.mine_block(data='Some transaction data')
+    print("Blockchain is valid:", my_blockchain.is_chain_valid())

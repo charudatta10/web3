@@ -24,7 +24,7 @@ class block():
 class Chain():
     def __init__(self, db_name="block_chain.jason") -> None:
         self.db = {}
-        self.db = redis.Redis(host='localhost', port=6379, db=0)
+        self.rdb = redis.Redis(host='localhost', port=6379, db=0)
         if os.path.exists(db_name):
             with open(db_name, 'r') as fp:
                 self.db = json.load(fp)
@@ -32,6 +32,7 @@ class Chain():
         else:
             self.db['0'] = block(0, "Genesis Block").__dict__
             self.id = 0
+            self.rdb.set(str(self.id), json.dumps(self.db['0']))
 
     def get_block(self, id): # return previous block
         return self.db[str(id)]
@@ -41,6 +42,7 @@ class Chain():
         b1.link = gen_hash(self.get_block(self.id))
         self.id = self.id + 1
         self.db[str(self.id)]= b1.__dict__
+        self.rdb.set(str(self.id), json.dumps(b1.__dict__))
 
     def view_chain(self):
         for i in range(len(self.db)):
@@ -75,10 +77,10 @@ if __name__ == "__main__":
     #b1=block( 0, '1a')
     #print(b1.__dict__)
     c1= Chain(db_name="../data/coin2.json")
-    c1.view_chain()
+    #c1.view_chain()
     c1.add_block("abc")
-    c1.view_chain()
+    #c1.view_chain()
     c1.add_block("123")
-    c1.view_chain()
+    #c1.view_chain()
     c1.save_chain(db_name="../data/coin2.json")
     
