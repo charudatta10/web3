@@ -59,7 +59,7 @@ class Chain():
     def get_block_rdb(self, id): 
         return self.rdb.get(str(id))
 
-    def add_block(self, data) -> None:
+    def add_block(self, data) -> None: #mine block
         b1= block(data) 
         b1.stamp = datetime.now().timestamp()
         b1.proof = b1.proof_of_work(self.get_block(self.id)['proof'])
@@ -70,10 +70,8 @@ class Chain():
         self.rdb.set(str(self.id), json.dumps(b1.get_dict()))
 
     def view_chain(self):
-        for i in range(len(self.db)):
-            for key,value in self.db.items():
-                print(f"key: {key}\nvalue: {value}\n---------------")
-            print(f"-------{i}-------")
+        for key,value in self.db.items():
+            print(f"key: {key}\nvalue: {value}\n---------------")
     
     def save_chain(self, db_name):
         with open(db_name, 'w') as fp:
@@ -118,18 +116,6 @@ class Chain():
             data_set.add(block.data)
         return True
 
-    def mine_block(self, data):
-        previous_block = self.chain[-1]
-        proof = self.proof_of_work(previous_block.proof)
-        new_block = Block(
-            index=len(self.chain),
-            timestamp=datetime.datetime.now(),
-            previous_hash=previous_block.hash,
-            proof=proof,
-            data=data,
-        )
-        self.chain.append(new_block)
-
     def is_chain_valid(self):
         # Check if the entire chain is valid
         for i in range(1, len(self.chain)):
@@ -143,10 +129,10 @@ if __name__ == "__main__":
     #b1=block( 0, '1a')
     #print(b1.__dict__)
     c1= Chain(db_name="../data/coin2.json")
-    #c1.view_chain()
+    c1.view_chain()
     c1.add_block("abc")
-    #c1.view_chain()
+    c1.view_chain()
     c1.add_block("123")
-    #c1.view_chain()
+    c1.view_chain()
     c1.save_chain(db_name="../data/coin2.json")
     
