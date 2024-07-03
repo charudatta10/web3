@@ -103,25 +103,28 @@ class Chain():
         return matching_blocks
 
     def is_data_in_chain(self, target_data):
-        for block in self.chain:
-            if block.data == target_data:
+        for i in range(0,len(self.db)):
+            block = self.db[str(i)]
+            if block["data"] == target_data:
                 return True
         return False
 
-    def is_data_unique(self, target_data):
+    def is_data_unique(self):
         data_set = set()
-        for block in self.chain:
-            if block.data in data_set:
+        for i in range(0,len(self.db)):
+            block = self.db[str(i)]
+            if block["data"] in data_set:
                 return False
-            data_set.add(block.data)
+            data_set.add(block["data"])
         return True
 
     def is_chain_valid(self):
         # Check if the entire chain is valid
-        for i in range(1, len(self.chain)):
-            current_block = self.chain[i]
-            previous_block = self.chain[i - 1]
-            if current_block.previous_hash != previous_block.hash:
+        for i in range(1, len(self.db)):
+            current_block = self.db[str(i)]
+            previous_block = self.db[str(i - 1)]
+            b1= block(previous_block["data"])
+            if current_block["link"] != b1.gen_hash(previous_block):
                 return False
         return True
 
@@ -129,10 +132,15 @@ if __name__ == "__main__":
     #b1=block( 0, '1a')
     #print(b1.__dict__)
     c1= Chain(db_name="../data/coin2.json")
-    c1.view_chain()
-    c1.add_block("abc")
-    c1.view_chain()
-    c1.add_block("123")
-    c1.view_chain()
-    c1.save_chain(db_name="../data/coin2.json")
+    a={"src": "bank", "dest": "ram", "amt": "1000", "type": "cash"}
+    #c1.add_block(a)
+    #a={"src": "ram", "dest": "sham", "amt": "1000", "type": "cash"}
+    #c1.add_block(a)
+    #c1.view_chain()
+    #c1.save_chain(db_name="../data/coin2.json")
+    print(f"Is chain valid? {c1.is_chain_valid()}")
+    print(f"list all cash transaction {c1.search_chain("cash")}")
+    print(f"Is data unique {c1.is_data_unique()}")
+    print(f"Is data in chain {c1.is_data_in_chain(a)}")
+    
     
