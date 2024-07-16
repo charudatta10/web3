@@ -4,3 +4,6 @@
 __*
 *.stats
 *.pem
+
+# Ignore dynaconf secret files
+.secrets.*
