@@ -47,7 +47,7 @@ commit message="init":
     git add .
     git commit -m {{message}}
 
-exe:
+exe file_name:
     #!pwsh
     pyintsaller src/{{file_name}} -onefile
 
