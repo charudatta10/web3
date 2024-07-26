@@ -2,12 +2,7 @@
 
 ## Supported Versions
 
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 1.0.5   | :white_check_mark: |
-| 1.0.0   | :x:                |
-
+Only current version is sported for vulnerability and bugfixes.
 
 ## Reporting a Vulnerability
 
