@@ -9,7 +9,7 @@ from leaf import leaf
 # connected twigs 
 # in the geneses block creator wallet address is to be added 
 
-class Chain():
+class tree():
     def __init__(self, db_name="block_chain.jason") -> None:
         self.db = {}
         self.rdb = redis.Redis(host='localhost', port=6379, db=0)
@@ -81,9 +81,10 @@ class Chain():
         data_set = set()
         for i in range(0,len(self.db)):
             block = self.db[str(i)]
-            if block["data"] in data_set:
+            print(block)
+            if block ["data"]["data"] in data_set:
                 return False
-            data_set.add(block["data"])
+            data_set.add(block["data"]["data"])
         return True
 
     def is_chain_valid(self):
@@ -99,7 +100,7 @@ class Chain():
 if __name__ == "__main__":
     #b1=block( 0, '1a')
     #print(b1.__dict__)
-    c1= Chain(db_name="../data/coin2.json")
+    c1= tree(db_name="../data/coin2.json")
     a={"src": "bank", "dest": "ram", "amt": "1000", "type": "cash"}
     #c1.add_block(a)
     #a={"src": "ram", "dest": "sham", "amt": "1000", "type": "cash"}

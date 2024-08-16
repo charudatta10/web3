@@ -10,7 +10,7 @@ class twig(leaf):
     def __init__(self, data) -> None:
         super().__init__(data)
         previous_proof,  previous_data = 1,2 # get from previous block
-        self.data= {'proof': self.proof_of_work(previous_proof),
+        self.data= {'proof': str(self.proof_of_work(previous_proof)),
         'link': self.gen_hash(previous_data), 
         'data': data}
 
