@@ -5,7 +5,7 @@ from datetime import datetime
 import hashlib
 from leaf import leaf
 
-# Everything is 
+# 
 # 1. fundamental element of chain
 
 class twig():

@@ -3,7 +3,11 @@ import os
 import redis
 from datetime import datetime
 
-# connected twigs
+from twig import twig
+from leaf import leaf
+
+# connected twigs 
+# in the geneses block creator wallet address is to be added 
 
 class Chain():
     def __init__(self, db_name="block_chain.jason") -> None:
@@ -14,7 +18,7 @@ class Chain():
                 self.db = json.load(fp)
                 self.id = len(self.db) - 1
         else:
-            self.db['0'] = block("Genesis Block").get_dict()
+            self.db['0'] = twig("Seed").get_dict()
             self.id = 0
             self.rdb.set(str(self.id), json.dumps(self.db['0']))
 
@@ -25,8 +29,7 @@ class Chain():
         return self.rdb.get(str(id))
 
     def add_block(self, data) -> None: #mine block
-        b1= block(data) 
-        b1.stamp = datetime.now().timestamp()
+        b1 = twig(data) 
         b1.proof = b1.proof_of_work(self.get_block(self.id)['proof'])
         b1.link = b1.gen_hash(self.get_block(self.id))
         b1.sign = b1.gen_sign()
@@ -88,7 +91,7 @@ class Chain():
         for i in range(1, len(self.db)):
             current_block = self.db[str(i)]
             previous_block = self.db[str(i - 1)]
-            b1= block(previous_block["data"])
+            b1= twig(previous_block["data"])
             if current_block["link"] != b1.gen_hash(previous_block):
                 return False
         return True
