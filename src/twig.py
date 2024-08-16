@@ -1,21 +1,18 @@
-import json
-import os
-import redis
 from datetime import datetime
 import hashlib
 from leaf import leaf
 
-# 
+# is special leaf which aggregates other leafs an and added back link and proof of concepts
 # 1. fundamental element of chain
 
-class twig():
+class twig(leaf):
 
     def __init__(self, data) -> None:
-        self.time= datetime.now().timestamp()
-        self.proof= None
-        self.link= None
-        self.sign= None
-        self.data= data
+        super().__init__(data)
+        previous_proof,  previous_data = 1,2 # get from previous block
+        self.data= {'proof': self.proof_of_work(previous_proof),
+        'link': self.gen_hash(previous_data), 
+        'data': data}
 
     def gen_hash(self, data):
         return hashlib.sha256(str(data).encode("utf-8")).hexdigest()
@@ -35,8 +32,9 @@ class twig():
         return 0
 
     def get_dict(self):
-        return {"stamp": str(self.stamp),
-                "proof": str(self.proof),
-                "link": str(self.link),
-                "sign": str(self.sign),
-                "data": str(self.data)}
+        return self.__dict__
+    
+
+if __name__ == "__main__":
+    t1 = twig("hi")
+    print(t1.get_dict())
