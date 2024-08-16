@@ -16,11 +16,7 @@ class leaf():
         self.data= data
 
     def get_sign(self):
-        return 0
+        return 1 # check if signature is valid and authentic and registered and return signature
 
     def get_dict(self):
-        return {"stamp": str(self.stamp),
-                "proof": str(self.proof),
-                "link": str(self.link),
-                "sign": str(self.sign),
-                "data": str(self.data)}
+        return self.__dict__
