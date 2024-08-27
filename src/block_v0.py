@@ -11,33 +11,48 @@ from cryptography.hazmat.primitives.asymmetric import padding
 
 class block:
 
-    def __init__(self, data, prev_data, private_key, public_key) -> None:
+    def __init__(self, data, prev_data, *args) -> None:
+        private_key, public_key = self._get_keys(*args)
         self.id = str(uuid4())
-        self.time = str(datetime.now().timestamp())
+        self.time = str(datetime.now())
         self.data = data
         self.link = self._get_hash(json.dumps(prev_data.get_dict()))
         self.author = self._key_conversion(public_key)
         self.nonce = self.proof_of_work(1)
-        self.sign = self.get_sign(self.id + self.nonce + self.time + self.data + self.link + self.author , private_key)
+        self.sign = self.get_sign(
+            self.id + self.nonce + self.time + self.data + self.link + self.author,
+            private_key,
+        )
 
-    def _get_hash(self, data: str)-> str:
+    def _get_keys(self, *args):
+        with open(f"{args[0]}.pem", "rb") as key_file:
+            private_key = serialization.load_pem_private_key(
+                key_file.read(),
+                password=None,
+            )
+
+        # Load the public key from a file
+        with open(f"{args[1]}.pem", "rb") as key_file:
+            public_key = serialization.load_pem_public_key(key_file.read())
+        return private_key, public_key
+
+    def _get_hash(self, data: str) -> str:
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
-        digest.update(data.encode('utf-8'))  # Encode the string to bytes
+        digest.update(data.encode("utf-8"))  # Encode the string to bytes
         return digest.finalize().hex()
-    
+
     def _key_conversion(self, public_key) -> str:
         public_key_bytes = public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
-            format=serialization.PublicFormat.SubjectPublicKeyInfo
+            format=serialization.PublicFormat.SubjectPublicKeyInfo,
         )
-        return base64.b64encode(public_key_bytes).decode('utf-8')
+        return base64.b64encode(public_key_bytes).decode("utf-8")
 
     def get_sign(self, message: str, private_key) -> str:
         signature = private_key.sign(
-            message.encode('utf-8'),  # Encode the string to bytes
+            message.encode("utf-8"),  # Encode the string to bytes
             padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()), 
-                salt_length=padding.PSS.MAX_LENGTH
+                mgf=padding.MGF1(hashes.SHA256()), salt_length=padding.PSS.MAX_LENGTH
             ),
             hashes.SHA256(),
         )
@@ -47,11 +62,13 @@ class block:
         # Find a proof that satisfies the condition (e.g., hash starts with '00000')
         new_proof = 1
         while True:
-            hash_operation = self._get_hash(self.id + self.time + self.link + self.author + str(new_proof) )
-            if hash_operation[:difficulty] == "0"*difficulty:
+            hash_operation = self._get_hash(
+                self.id + self.time + self.link + self.author + str(new_proof)
+            )
+            if hash_operation[:difficulty] == "0" * difficulty:
                 return str(new_proof)
             new_proof += 1
-            
+
     def get_dict(self):
         return self.__dict__
 
@@ -62,13 +79,11 @@ if __name__ == "__main__":
         private_key = serialization.load_pem_private_key(
             key_file.read(),
             password=None,
-        )   
+        )
 
     # Load the public key from a file
     with open("public_key.pem", "rb") as key_file:
-        public_key = serialization.load_pem_public_key(
-            key_file.read()
-        )
+        public_key = serialization.load_pem_public_key(key_file.read())
 
     b = block("abc", "hi", private_key, public_key)
     print(b.get_dict())
