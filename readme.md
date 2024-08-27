@@ -1,96 +1,29 @@
  
-<!-- PROJECT Banner -->
+# web3
 
-![SVG Banners](https://svg-banners.vercel.app/api?type=luminance&text1=crypto%20functions%20list&width=1020&height=460)
+<!-- Badges: Project Status GitHub -->
+![license](https://badgen.net/static/license/GPL-3.0/blue)
+![release](https://badgen.net/github/release/charudatta10/web3)
+![commits](https://badgen.net/github/commits/charudatta10/web3)
+![last-commit](https://badgen.net/badge/github/last-commit/web3)
+<!-- Badges: Tools used -->
+![](https://badgen.net/badge/%20/Python/blue?icon=python) ![](https://badgen.net/badge/%20/Just/blue?icon=just) 
 
-<!-- PROJECT TITLE - PROJECT LOGO -->
-# crypto functions list ![Logo]()
+## Documentation 🗎
 
-<!-- PROJECT SHIELDS -->
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/charudatta10/crypto%20functions%20list?include_prereleases)
-![GitHub last commit](https://img.shields.io/github/last-commit/charudatta10/crypto%20functions%20list)
-![GitHub issues](https://img.shields.io/github/issues-raw/charudatta10/crypto%20functions%20list)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/charudatta10/crypto%20functions%20list)
-![GitHub](https://img.shields.io/github/license/charudatta10/crypto%20functions%20list)
+The project is aggretor repo of blockchain, VMs, torrent, and web3 technologies.  
 
-<!-- Project Description -->
-blockchain  
+### Features 🌟
 
-<!-- SHARING ON SOCIAL MEDIA -->
-
-<!-- TABLE OF CONTENTS -->
-
-## Project Preview 📖 <!-- Usage screenshots -->
-
-![Project Preview]()
-
-## Features 🌟
-
-- wallet
-- transection
+-  simple block chain. 
+-  one transaction per block. 
+- fast block generation. 
  
-
-## Built With 🔧
-![](https://img.shields.io/badge/Python-975E73?style=for-the-badge&logo=python&logoColor=000) 
-
-<!-- Documentation  -->
 
 ## Getting Started 🌱
 
-### Dependencies ⧉
+`just`
 
-- crypto
+✨[Report a 🐛 or Request a ⭐](https://github.com//web3/issues)✨
 
-
-### Installation ■■■■■■■■■■
-
-1. To install from binaries:  
-   Download the binary file from the release and double-click to use it.
-
-2. To install from source:
-
-```PowerShell
-gh repo clone charudatta10/crypto functions list
-```
- 
-## Documentation 🗎
-
-- python chain.py
-
-
-![Screenshot]()
-
-## FAQ ?
-
-✨[Report a 🐛 or Request a ⭐](https://github.com/charudatta10/crypto%20functions%20list/issues)✨
-
-> is project production ready??    
-   no.    
-   
-
-
-<!-- Community Guidelines [Author, Contributors, contributors guidelines, users, license ] -->
-
-## Authors 👱
-
-The author of this project is charudatta10.  
-
-## Contributors 👪
-
-| ![profile-picture.png](https://i.pinimg.com/564x/72/44/9f/72449fe7f77ccecce98bf10cf21e92ab.jpg) |
-| :---: | 
-| charudatta10 |
-| [💻](#code-charudatta10)  [📖](#doc-charudatta10)  [🎨](#design-charudatta10)  [💡](#example-charudatta10)  [🤔](#ideas-charudatta10)|
-
-
-### Contribution guidelines
-
-The contribution to this project should adhere to MIT and respect the copyright claims of charudatta10.
-
-## License 📜
-
-Copyright :copyright: 2024 ![logo](favicon05.svg):tm: @ charudatta10.   
-The project is licensed [MIT](./LICENSE).
-
-<!--- Contact form and portfolio links sponsorship links-->
-[Contact Me](https://charudatta10.github.io/linktree/)
+Copyright :copyright: 2024 ![logo](docs/assets/images/icon.svg):tm: @ charudatta10.   

@@ -1,7 +1,8 @@
-from leaf import leaf
-from twig import twig
-from tree import tree
+# create wallet, check if wallet already exist, if yes error else create
+# add money
+# send money
+# balance
 
-
+# crud create read [update delete]
 class vm:
     pass

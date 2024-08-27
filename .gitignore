@@ -7,3 +7,4 @@ __*
 
 # Ignore dynaconf secret files
 .secrets.*
+*.bin
