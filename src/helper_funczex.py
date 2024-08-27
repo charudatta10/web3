@@ -1,6 +1,6 @@
 from email.headerregistry import Address
 import hashlib
-import json 
+import json
 
 from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
@@ -12,7 +12,6 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import padding
-
 
 
 def gen_hash(data):
@@ -130,6 +129,4 @@ with open("private_key.pem", "rb") as key_file:
 
 # Load the public key from a file
 with open("public_key.pem", "rb") as key_file:
-    loaded_public_key = serialization.load_pem_public_key(
-        key_file.read()
-    )
+    loaded_public_key = serialization.load_pem_public_key(key_file.read())

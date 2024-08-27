@@ -4,7 +4,6 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 
 
-
 class block:
     """
     Minimalist block implementation with just connecting link, data and mining.
@@ -15,20 +14,20 @@ class block:
         self.link = self._get_hash(json.dumps(prev_data.get_dict()))
         self.nonce = self.proof_of_work(1)
 
-    def _get_hash(self, data: str)-> str:
+    def _get_hash(self, data: str) -> str:
         digest = hashes.Hash(hashes.SHA256(), backend=default_backend())
-        digest.update(data.encode('utf-8'))  # Encode the string to bytes
+        digest.update(data.encode("utf-8"))  # Encode the string to bytes
         return digest.finalize().hex()
 
     def proof_of_work(self, difficulty):
         # Find a proof that satisfies the condition (e.g., hash starts with '00000')
         new_proof = 1
         while True:
-            hash_operation = self._get_hash(self.link + str(new_proof) )
-            if hash_operation[:difficulty] == "0"*difficulty:
+            hash_operation = self._get_hash(self.link + str(new_proof))
+            if hash_operation[:difficulty] == "0" * difficulty:
                 return str(new_proof)
             new_proof += 1
-            
+
     def get_dict(self):
         return self.__dict__
 

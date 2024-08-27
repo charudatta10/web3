@@ -1,11 +1,8 @@
-[[tool.pydoc-markdown.loaders]]
-type = "python"
-search_path = [ "../src" ]
+[tool.pydoc-markdown]
+# Other configuration options...
+pages = [
+    { file = "README.md" },  # Include your main README file
+    { file = "docs/*.md" }   # Include all Markdown files in the 'docs' directory
+]
 
-[tool.pydoc-markdown.renderer]
-type = "mkdocs"
 
-[[tool.pydoc-markdown.renderer.pages]]
-title = "API Documentation"
-name = "index"
-contents = [ "./*" ]
