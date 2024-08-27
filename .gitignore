@@ -8,3 +8,5 @@ __*
 # Ignore dynaconf secret files
 .secrets.*
 *.bin
+docs/html/
+docs/latex/
