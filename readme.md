@@ -5,7 +5,7 @@
 ![license](https://badgen.net/static/license/GPL-3.0/blue)
 ![release](https://badgen.net/github/release/charudatta10/web3)
 ![commits](https://badgen.net/github/commits/charudatta10/web3)
-![last-commit](https://badgen.net/badge/github/last-commit/web3)
+![last-commit](https://badgen.net/github/last-commit/charudatta10/web3)
 <!-- Badges: Tools used -->
 `python` `just` `gig` `cryptography` `json` 
 
