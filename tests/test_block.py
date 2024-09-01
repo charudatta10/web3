@@ -1,6 +1,9 @@
 import unittest
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
+import json 
+
+from src.block import Wallet, Transaction, Block
 
 class TestBlockchain(unittest.TestCase):
 
@@ -53,7 +56,7 @@ class TestBlockchain(unittest.TestCase):
     def test_invalid_signature(self):
         # Create a transaction
         tx = Transaction("Alice", "Bob", 10)
-        tx.signature = "invalid_signature"
+        tx.signature = "00" * 64  # Invalid but correctly formatted signature
 
         # Verify and add the transaction
         success, message = self.genesis_block.add_transaction(tx, self.sender_wallet, self.recipient_wallet)

@@ -47,7 +47,12 @@ class Transaction:
         self.signature = signature
 
     def get_dict(self):
-        return self.__dict__
+        return {
+            'sender': self.sender,
+            'recipient': self.recipient,
+            'amount': self.amount,
+            'timestamp': self.timestamp
+        }
 
     def sign_transaction(self, private_key):
         message = json.dumps(self.get_dict())
@@ -67,9 +72,11 @@ class Transaction:
             return False, "Insufficient balance."
         if sender_wallet.address != self.sender:
             return False, "Invalid sender address."
+        if not self.signature:
+            return False, "Missing signature."
         message = json.dumps(self.get_dict())
-        signature = bytes.fromhex(self.signature)
         try:
+            signature = bytes.fromhex(self.signature)
             sender_wallet.public_key.verify(
                 signature,
                 message.encode("utf-8"),
@@ -81,7 +88,9 @@ class Transaction:
             )
             return True, "Transaction verified."
         except Exception as e:
-            return False, "Invalid signature."
+            return False, f"Invalid signature: {str(e)}"
+
+
 
 class Block:
     def __init__(self, data, prev_data, transactions, *args) -> None:
