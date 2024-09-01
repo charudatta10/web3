@@ -3,7 +3,9 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.backends import default_backend
 import json 
 
-from src.block import Wallet, Transaction, Block
+from src.wallet import Wallet
+from src.transaction import Transaction
+from src.block import Block
 
 class TestBlockchain(unittest.TestCase):
 

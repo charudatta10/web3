@@ -2,95 +2,13 @@ from datetime import datetime
 from uuid import uuid4
 import base64
 import json
-import os
 
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import padding
 
-class Wallet:
-    def __init__(self, address, balance, public_key):
-        self.address = address
-        self.balance = balance
-        self.public_key = public_key
-
-    def save_to_disk(self):
-        wallet_data = {
-            'address': self.address,
-            'balance': self.balance,
-            'public_key': self.public_key.public_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PublicFormat.SubjectPublicKeyInfo
-            ).decode('utf-8')
-        }
-        with open(f'{self.address}.json', 'w') as f:
-            json.dump(wallet_data, f)
-
-    @staticmethod
-    def load_from_disk(address):
-        if not os.path.exists(f'{address}.json'):
-            return None
-        with open(f'{address}.json', 'r') as f:
-            wallet_data = json.load(f)
-        public_key = serialization.load_pem_public_key(
-            wallet_data['public_key'].encode('utf-8'),
-            backend=default_backend()
-        )
-        return Wallet(wallet_data['address'], wallet_data['balance'], public_key)
-
-class Transaction:
-    def __init__(self, sender, recipient, amount, signature=None):
-        self.sender = sender
-        self.recipient = recipient
-        self.amount = amount
-        self.timestamp = str(datetime.now())
-        self.signature = signature
-
-    def get_dict(self):
-        return {
-            'sender': self.sender,
-            'recipient': self.recipient,
-            'amount': self.amount,
-            'timestamp': self.timestamp
-        }
-
-    def sign_transaction(self, private_key):
-        message = json.dumps(self.get_dict())
-        self.signature = private_key.sign(
-            message.encode("utf-8"),
-            padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()),
-                salt_length=padding.PSS.MAX_LENGTH
-            ),
-            hashes.SHA256()
-        ).hex()
-
-    def verify_transaction(self, sender_wallet, recipient_wallet):
-        if not sender_wallet or not recipient_wallet:
-            return False, "Sender or recipient wallet does not exist."
-        if sender_wallet.balance < self.amount:
-            return False, "Insufficient balance."
-        if sender_wallet.address != self.sender:
-            return False, "Invalid sender address."
-        if not self.signature:
-            return False, "Missing signature."
-        message = json.dumps(self.get_dict())
-        try:
-            signature = bytes.fromhex(self.signature)
-            sender_wallet.public_key.verify(
-                signature,
-                message.encode("utf-8"),
-                padding.PSS(
-                    mgf=padding.MGF1(hashes.SHA256()),
-                    salt_length=padding.PSS.MAX_LENGTH
-                ),
-                hashes.SHA256()
-            )
-            return True, "Transaction verified."
-        except Exception as e:
-            return False, f"Invalid signature: {str(e)}"
-
-
+from src.wallet import Wallet
+from src.transaction import Transaction
 
 class Block:
     def __init__(self, data, prev_data, transactions, *args) -> None:
