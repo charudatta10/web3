@@ -18,24 +18,15 @@
 
 set windows-shell := ["pwsh.exe", "-NoLogo", "-Command"]
 
+env_path := "C:/Users/$env:username/Documents/GitHub"
+
 default:
     @just --choose
 
 # create files and directories
 init:
     #!pwsh
-    git init
-    New-Item -ItemType "file" -Path ".gitattribute", "main.py", "requirements.json", "config.json"
-    New-Item -ItemType "directory" -Path "archives", "docs", "src", "tests"
-    New-Item -ItemType "file" -Path .\* -Name "__init__.py" -ErrorAction SilentlyContinue
-    gig gen python > .gitignore 
-    Add-LicenseHeader
-
-# set configuration variables
-config:
-    #!pwsh
-    config.json >> .gitignore
-    Set-EnvFromJson
+    New-Project.ps1
 
 # add documentation to repo
 docs:
@@ -43,11 +34,11 @@ docs:
     conda activate blog
     python -m mkdocs new .
 
-# genearte and readme to repo    
+# generate and readme to repo    
 readme:
     #!pwsh
     conda activate w
-    python C:/Users/$env:username/Documents/GitHub/readmeGen/main.py
+    python {{env_path}}/readmeGen/main.py
 
 # version control repo with git
 commit message="init":
@@ -65,6 +56,82 @@ tests:
     #!pwsh
     python -m unittest discover -s tests
 
+# run project
+run:
+    #!pwsh
+    python run.py
+
+# exit just file
+quit:
+    #!pwsh
+    write-Host "Copyright © 2024 Charudatta"
+    
+# install dependencies
+install:
+    #!pwsh
+    pip install -r requirements.txt
+
+# lint code
+lint:
+    #!pwsh
+    pylint src/
+    flake8 src/
+
+# format code
+format:
+    #!pwsh
+    black src/
+
+# run security checks
+security:
+    #!pwsh
+    bandit -r src/
+
+# build documentation
+build-docs:
+    #!pwsh
+    mkdocs build
+
+# deploy application
+deploy:
+    #!pwsh
+    git pull origin main --force
+    @test 
+    @security
+    @lint
+    @format
+    @commit
+    git push -u origin main
+
+# setup logging
+setup-logging:
+    #!pwsh
+    Add-Logger.ps1
+
+# view logs
+view-logs:
+    #!pwsh
+    Get-Content -Path "app.log" -Tail 10
+
+# clean up
+clean:
+    #!pwsh
+    Remove-Item -Recurse -Force dist, build, *.egg-info
+
+# check for updates
+update:
+    #!pwsh
+    pip list --outdated
+
+# project mangement add task and todos 
+todos:
+    #!pwsh
+    wic
+
+timeit cmd=start:
+    #!pwsh
+    timetrace {{cmd}} # start, stop, list
+
 # Add custom tasks, enviroment variables
 
 
@@ -72,4 +139,3 @@ tests:
 
 
         
-
